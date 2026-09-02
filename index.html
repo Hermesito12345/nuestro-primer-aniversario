@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💛 Nuestro primer año</title>
+
+<style>
+:root {
+  --fondo: #0d1020;
+  --tarjeta: #181c32;
+  --tarjeta2: #252a48;
+  --texto: #fffaf0;
+  --suave: #c1c6df;
+  --amarillo: #ffd166;
+  --rosa: #ff6b8a;
+  --verde: #71e6a4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--texto);
+
+  background:
+    radial-gradient(circle at 20% 10%, #30275a 0, transparent 35%),
+    radial-gradient(circle at 90% 80%, #5a263f 0, transparent 30%),
+    var(--fondo);
+}
+
+.app {
+  width: min(100%, 680px);
+  min-height: 100vh;
+  margin: auto;
+  padding: 20px 16px 40px;
+  display: flex;
+  align-items: center;
+}
+
+.pantalla {
+  width: 100%;
+  display: none;
+  animation: aparecer .45s ease;
+}
+
+.pantalla.activa {
+  display: block;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tarjeta {
+  background: rgba(24, 28, 50, .96);
+  border-radius: 28px;
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: 0 20px 70px rgba(0,0,0,.4);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.emoji-grande {
+  font-size: 4rem;
+}
+
+.superior {
+  color: var(--amarillo);
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 9vw, 4rem);
+  line-height: 1;
+  margin: 15px 0;
+}
+
+h2 {
+  font-size: clamp(1.6rem, 7vw, 2.5rem);
+  margin: 12px 0;
+}
+
+p {
+  color: var(--suave);
+  line-height: 1.55;
+}
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-top: 15px;
+
+  background: var(--amarillo);
+  color: #171827;
+
+  font-size: 1rem;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  transition:
+    transform .15s,
+    filter .15s,
+    opacity .15s;
+}
+
+button:active {
+  transform: scale(.96);
+}
+
+button:hover {
+  filter: brightness(1.08);
+}
+
+button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+.secundario {
+  background: var(--tarjeta2);
+  color: var(--texto);
+}
+
+.corazon {
+  animation: latido 1.5s infinite;
+}
+
+@keyframes latido {
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+
+/* SOPA */
+
+.palabras {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.palabra {
+  padding: 7px 11px;
+  border-radius: 50px;
+  background: var(--tarjeta2);
+  font-size: .85rem;
+  font-weight: 700;
+}
+
+.palabra.encontrada {
+  background: rgba(113,230,164,.18);
+  color: var(--verde);
+  text-decoration: line-through;
+}
+
+.sopa {
+  width: min(94vw, 500px);
+  margin: 20px auto;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+
+  touch-action: none;
+  user-select: none;
+}
+
+.letra {
+  aspect-ratio: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #292f53;
+  border-radius: 7px;
+
+  font-size: clamp(.75rem, 4vw, 1.1rem);
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.letra.seleccionada {
+  background: #80629b;
+}
+
+.letra.encontrada {
+  background: var(--amarillo);
+  color: #171827;
+}
+
+
+/* VIDEO */
+
+.video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+
+  margin: 20px 0;
+
+  border-radius: 18px;
+  overflow: hidden;
+  background: black;
+}
+
+.video iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+/* CARRERA */
+
+.pista {
+  position: relative;
+  height: 135px;
+
+  margin: 20px 0;
+
+  overflow: hidden;
+
+  border-radius: 22px;
+
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #292e4b 0 18px,
+      #20243e 18px 36px
+    );
+}
+
+.meta {
+  position: absolute;
+  right: 7%;
+  top: 0;
+
+  height: 100%;
+  width: 10px;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      white 0 10px,
+      black 10px 20px
+    );
+}
+
+.coche-jugador,
+.coche-maquina {
+  position: absolute;
+  left: 8px;
+}
+
+.coche-jugador {
+  top: 38px;
+  font-size: 2.3rem;
+}
+
+.coche-maquina {
+  top: 82px;
+  font-size: 1.9rem;
+}
+
+.barra {
+  height: 11px;
+
+  background: #090c18;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  margin: 10px 0;
+}
+
+.progreso {
+  width: 0%;
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    var(--rosa),
+    var(--amarillo)
+  );
+
+  transition: width .08s linear;
+}
+
+.estado {
+  min-height: 30px;
+  font-weight: 800;
+}
+
+
+/* OPCIONES */
+
+.opciones {
+  display: grid;
+  gap: 12px;
+
+  margin-top: 20px;
+}
+
+.opcion {
+  text-align: left;
+
+  background: var(--tarjeta2);
+  color: var(--texto);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  box-shadow: none;
+}
+
+
+/* FINAL */
+
+.revelacion {
+  padding: 25px 12px;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,107,138,.18),
+      rgba(255,209,102,.16)
+    );
+}
+
+.grande {
+  font-size: clamp(2rem, 9vw, 4rem);
+  line-height: 1;
+  font-weight: 950;
+}
+
+.final {
+  font-size: clamp(2rem, 10vw, 4rem);
+  line-height: 1.05;
+  font-weight: 950;
+
+  margin: 25px 0;
+}
+
+.brillo {
+  font-size: 2rem;
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- ================================================= -->
+<!-- 1. INICIO -->
+<!-- ================================================= -->
+
+<section class="pantalla activa" id="pantalla1">
+
+<div class="tarjeta">
+
+<div class="emoji-grande corazon">💛</div>
+
+<div class="superior">
+Capítulo 1
+</div>
+
+<h1>
+¡Feliz primer año juntos!
+</h1>
+
+<p>
+He preparado una pequeña misión.
+<br><br>
+
+Tendrás que prestar atención,
+tener memoria y, en algún momento,
+probablemente competir conmigo.
+</p>
+
+<button onclick="mostrar(2)">
+Empezar juego
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- 2. SOPA -->
+<!-- ================================================= -->
+
+<section class="pantalla" id="pantalla2">
+
+<div class="tarjeta">
+
+<div class="superior">
+Capítulo 2
+</div>
+
+<h2>
+Encuentra las palabras 🔎
+</h2>
+
+<p>
+Hay cuatro palabras escondidas.
+Encuéntralas todas.
+</p>
+
+<div class="palabras">
+
+<span class="palabra" id="word-YELLOWSTON">
+YELLOWSTON
+</span>
+
+<span class="palabra" id="word-MATT">
+MATT
+</span>
+
+<span class="palabra" id="word-HANSEN">
+HANSEN
+</span>
+
+<span class="palabra" id="word-NUESTRA">
+NUESTRA
+</span>
+
+</div>
+
+<div class="sopa" id="sopa"></div>
+
+<div class="estado" id="estadoSopa">
+0 / 4 encontradas
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- 3. VIDEO -->
+<!-- ================================================= -->
+
+<section class="pantalla" id="pantalla3">
+
+<div class="tarjeta">
+
+<div class="superior">
+Capítulo 3
+</div>
+
+<h2>
+🎵 La has encontrado
+</h2>
+
+<p>
+Ahora escucha con atención.
+<br>
+La siguiente pista está en la canción.
+</p>
+
+<div class="video">
+
+<iframe
+src="https://www.youtube.com/embed/uFqwV8BjcQo"
+title="Yellowstone - Matt Hansen"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+allowfullscreen>
+</iframe>
+
+</div>
+
+<button onclick="mostrar(4)">
+¿Cuál es nuestro destino?
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- 4. CARRERA -->
+<!-- ================================================= -->
+
+<section class="pantalla" id="pantalla4">
+
+<div class="tarjeta">
+
+<div class="superior">
+Capítulo 4 · La carrera
+</div>
+
+<h2>
+🏎️ Contra la máquina
+</h2>
+
+<p>
+Pulsa rápidamente para avanzar.
+<br>
+Tienes que llegar a la meta antes que la máquina.
+</p>
+
+
+<div class="pista">
+
+<div class="meta"></div>
+
+<div
+class="coche-jugador"
+id="jugador">
+🏎️
+</div>
+
+<div
+class="coche-maquina"
+id="maquina">
+🤖
+</div>
+
+</div>
+
+
+<div class="barra">
+<div
+class="progreso"
+id="barraJugador">
+</div>
+</div>
+
+
+<div class="barra">
+<div
+class="progreso"
+id="barraMaquina">
+</div>
+</div>
+
+
+<div
+class="estado"
+id="estadoCarrera">
+Pulsa “¡Acelerar!” para empezar.
+</div>
+
+
+<button
+id="botonAcelerar"
+onclick="acelerar()">
+
+¡Acelerar!
+
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- 5. PREGUNTA -->
+<!-- ================================================= -->
+
+<section class="pantalla" id="pantalla5">
+
+<div class="tarjeta">
+
+<div class="superior">
+Capítulo 5
+</div>
+
+<h2>
+¿Dónde fue nuestra primera cita?
+</h2>
+
+<p>
+Una pregunta muy sencilla.
+<br>
+Seguramente. 👀
+</p>
+
+
+<div class="opciones">
+
+<button
+class="opcion"
+onclick="respuesta()">
+
+1. Karts
+
+</button>
+
+
+<button
+class="opcion"
+onclick="respuesta()">
+
+2. Tomar algo
+
+</button>
+
+
+<button
+class="opcion"
+onclick="respuesta()">
+
+3. Música y copas
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- 6. RESPUESTA -->
+<!-- ================================================= -->
+
+<section class="pantalla" id="pantalla6">
+
+<div class="tarjeta">
+
+<div class="revelacion">
+
+<div class="brillo">
+✨ 🏆 ✨
+</div>
+
+<div class="grande">
+
+¡EFECTIVAMENTE,<br>
+TOMAR ALGO! 😛
+
+</div>
+
+<p style="
+color:white;
+font-size:1.15rem;
+font-weight:800;
+">
+
+Pero hoy nos vamos donde la segunda 😛
+
+<br><br>
+
+<strong>
+De vuelta a la pista.
+🏎️
+</strong>
+
+</p>
+
+</div>
+
+
+<button onclick="mostrar(7)">
+Continuar
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- 7. ESPERAR ORDEN -->
+<!-- ================================================= -->
+
+<section class="pantalla" id="pantalla7">
+
+<div class="tarjeta">
+
+<div class="superior">
+Última misión
+</div>
+
+<h2>
+Una última orden
+</h2>
+
+<p>
+El siguiente paso no se puede hacer todavía.
+</p>
+
+
+<button
+id="botonOrden"
+disabled>
+
+Espera órdenes para pulsar botón
+
+</button>
+
+
+<p id="textoEspera">
+Cuando sea el momento...
+lo sabrás.
+</p>
+
+</div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- 8. FINAL -->
+<!-- ================================================= -->
+
+<section class="pantalla" id="pantalla8">
+<div class="tarjeta">
+
+<div class="brillo">🏁 💛 🏁</div>
+
+<div class="final">
+¡SALTA DETRÁS<br>Y BUSCA UN SOBRE!
+</div>
+
+<p>La última pista ya no está en la pantalla.</p>
+
+<p style="font-size:1.25rem;color:white;font-weight:800;">
+Está detrás de ti. 👀
+</p>
+
+<img
+  src="nosotros.png"
+  alt="Nosotros"
+  style="
+    width:100%;
+    max-width:500px;
+    margin-top:25px;
+    border-radius:22px;
+    display:block;
+    box-shadow:0 15px 40px rgba(0,0,0,.45);
+  "
+>
+
+<p style="font-size:1.4rem;color:white;font-weight:900;margin-top:20px;">
+💛 Un año contigo 💛
+</p>
+
+</div>
+</section>
+
+
+</div>
+
+
+
+<script>
+
+/* =====================================================
+   CAMBIO DE PANTALLAS
+===================================================== */
+
+function mostrar(numero) {
+
+document
+.querySelectorAll(".pantalla")
+.forEach(p => p.classList.remove("activa"));
+
+document
+.getElementById("pantalla" + numero)
+.classList.add("activa");
+
+window.scrollTo({
+top: 0,
+behavior: "smooth"
+});
+
+if(numero === 7) {
+
+prepararOrden();
+
+}
+
+}
+
+
+
+    /* =====================================================
+       SOPA DE LETRAS
+    ===================================================== */
+
+    const palabras = [
+      "YELLOWSTON",
+      "MATT",
+      "HANSEN",
+      "NUESTRA"
+    ];
+
+    const tamaño = 10;
+
+    const colocaciones = [
+
+      {
+        palabra: "YELLOWSTON",
+        fila: 1,
+        columna: 0,
+        dr: 0,
+        dc: 1
+      },
+
+      {
+        palabra: "MATT",
+        fila: 3,
+        columna: 8,
+        dr: 1,
+        dc: 0
+      },
+
+      {
+        palabra: "HANSEN",
+        fila: 7,
+        columna: 1,
+        dr: -1,
+        dc: 1
+      },
+
+      {
+        palabra: "NUESTRA",
+        fila: 9,
+        columna: 9,
+        dr: 0,
+        dc: -1
+      }
+
+    ];
+
+
+    let tablero = Array.from(
+      { length: tamaño },
+      () => Array(tamaño).fill("")
+    );
+
+
+    const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+
+    /* Colocamos las palabras */
+
+    colocaciones.forEach(p => {
+
+      [...p.palabra].forEach((letra, i) => {
+
+        tablero[
+          p.fila + p.dr * i
+        ][
+          p.columna + p.dc * i
+        ] = letra;
+
+      });
+
+    });
+
+
+    /* Rellenamos los huecos */
+
+    for (let fila = 0; fila < tamaño; fila++) {
+
+      for (let columna = 0; columna < tamaño; columna++) {
+
+        if (!tablero[fila][columna]) {
+
+          tablero[fila][columna] =
+            letras[
+              Math.floor(
+                Math.random() * letras.length
+              )
+            ];
+
+        }
+
+      }
+
+    }
+
+
+    /* Creamos la sopa */
+
+    const sopa =
+      document.getElementById("sopa");
+
+
+    let primera = null;
+
+    const encontradas = new Set();
+
+
+    for (let fila = 0; fila < tamaño; fila++) {
+
+      for (let columna = 0; columna < tamaño; columna++) {
+
+        const celda =
+          document.createElement("div");
+
+        celda.className = "letra";
+
+        celda.textContent =
+          tablero[fila][columna];
+
+        celda.dataset.fila = fila;
+        celda.dataset.columna = columna;
+
+
+        /* IMPORTANTE PARA MÓVIL */
+
+        celda.addEventListener("click", () => {
+
+          seleccionarLetra(
+            fila,
+            columna,
+            celda
+          );
+
+        });
+
+
+        sopa.appendChild(celda);
+
+      }
+
+    }
+
+
+    /* Selección por dos toques */
+
+    function seleccionarLetra(fila, columna, celda) {
+
+      /* Primer toque */
+
+      if (!primera) {
+
+        primera = {
+          fila: fila,
+          columna: columna
+        };
+
+        limpiarSeleccion();
+
+        celda.classList.add("seleccionada");
+
+        document.getElementById(
+          "estadoSopa"
+        ).textContent =
+          "Ahora toca la última letra de la palabra";
+
+        return;
+
+      }
+
+
+      /* Segundo toque */
+
+      const segunda = {
+        fila: fila,
+        columna: columna
+      };
+
+
+      limpiarSeleccion();
+
+
+      const posiciones =
+        linea(primera, segunda);
+
+
+      if (posiciones.length === 0) {
+
+        document.getElementById(
+          "estadoSopa"
+        ).textContent =
+          "❌ La palabra debe estar en línea recta";
+
+        primera = null;
+
+        return;
+
+      }
+
+
+      const seleccionadas =
+        posiciones.map(pos =>
+          obtenerCelda(
+            pos.fila,
+            pos.columna
+          )
+        );
+
+
+      const texto =
+        seleccionadas
+          .map(celda => celda.textContent)
+          .join("");
+
+
+      const invertida =
+        texto
+          .split("")
+          .reverse()
+          .join("");
+
+
+      const encontrada =
+        palabras.find(
+          palabra =>
+            !encontradas.has(palabra) &&
+            (
+              texto === palabra ||
+              invertida === palabra
+            )
+        );
+
+
+      if (encontrada) {
+
+        encontradas.add(encontrada);
+
+
+        seleccionadas.forEach(celda => {
+
+          celda.classList.add("encontrada");
+
+        });
+
+
+        const elementoPalabra =
+          document.getElementById(
+            "word-" + encontrada
+          );
+
+
+        if (elementoPalabra) {
+
+          elementoPalabra.classList.add(
+            "encontrada"
+          );
+
+        }
+
+
+        document.getElementById(
+          "estadoSopa"
+        ).textContent =
+          `${encontradas.size} / 4 encontradas`;
+
+
+        if (encontradas.size === 4) {
+
+          document.getElementById(
+            "estadoSopa"
+          ).textContent =
+            "✨ ¡Las has encontrado todas!";
+
+
+          setTimeout(
+            () => mostrar(3),
+            900
+          );
+
+        }
+
+      } else {
+
+        document.getElementById(
+          "estadoSopa"
+        ).textContent =
+          "❌ Esa no es una de las palabras";
+
+      }
+
+
+      primera = null;
+
+    }
+
+
+    /* Devuelve las posiciones entre dos letras */
+
+    function linea(a, b) {
+
+      const diferenciaFila =
+        b.fila - a.fila;
+
+      const diferenciaColumna =
+        b.columna - a.columna;
+
+
+      const direccionFila =
+        Math.sign(diferenciaFila);
+
+      const direccionColumna =
+        Math.sign(diferenciaColumna);
+
+
+      /* Solo horizontal, vertical o diagonal */
+
+      if (
+        diferenciaFila !== 0 &&
+        diferenciaColumna !== 0 &&
+        Math.abs(diferenciaFila) !==
+        Math.abs(diferenciaColumna)
+      ) {
+
+        return [];
+
+      }
+
+
+      const cantidad =
+        Math.max(
+          Math.abs(diferenciaFila),
+          Math.abs(diferenciaColumna)
+        );
+
+
+      return Array.from(
+        { length: cantidad + 1 },
+        (_, i) => ({
+
+          fila:
+            a.fila +
+            direccionFila * i,
+
+          columna:
+            a.columna +
+            direccionColumna * i
+
+        })
+      );
+
+    }
+
+
+    /* Busca una casilla */
+
+    function obtenerCelda(fila, columna) {
+
+      return sopa.querySelector(
+        `.letra[data-fila="${fila}"][data-columna="${columna}"]`
+      );
+
+    }
+
+
+    /* Limpia la selección */
+
+    function limpiarSeleccion() {
+
+      sopa
+        .querySelectorAll(".seleccionada")
+        .forEach(celda =>
+          celda.classList.remove(
+            "seleccionada"
+          )
+        );
+
+    }
+
+/* =====================================================
+   CARRERA
+===================================================== */
+
+let jugador=0;
+let maquina=0;
+
+let corriendo=false;
+let intervalo;
+
+
+function iniciarCarrera(){
+  if(corriendo)return;
+  corriendo=true;
+  document.getElementById("estadoCarrera").textContent="¡CORRE! 🏁";
+
+  intervalo=setInterval(()=>{
+    maquina+=1.8+Math.random()*1.2;
+    actualizarCarrera();
+
+    if(maquina>=100)perderCarrera();
+  },80);
+}
+
+function acelerar(){
+  if(!corriendo) iniciarCarrera();
+
+  jugador+=9+Math.random()*4;
+  actualizarCarrera();
+
+  if(jugador>=100)ganarCarrera();
+}
+
+
+
+function actualizarCarrera(){
+
+document.getElementById(
+"barraJugador"
+).style.width =
+Math.min(jugador,100) + "%";
+
+
+document.getElementById(
+"barraMaquina"
+).style.width =
+Math.min(maquina,100) + "%";
+
+
+document.getElementById(
+"jugador"
+).style.left =
+Math.min(
+90,
+8 + jugador*.82
+) + "%";
+
+
+document.getElementById(
+"maquina"
+).style.left =
+Math.min(
+90,
+8 + maquina*.82
+) + "%";
+
+}
+
+
+function ganarCarrera(){
+
+clearInterval(intervalo);
+
+corriendo=false;
+
+document.getElementById(
+"estadoCarrera"
+).textContent =
+"🏆 ¡HAS GANADO!";
+
+
+document.getElementById(
+"botonAcelerar"
+).disabled=true;
+
+
+setTimeout(
+() => mostrar(5),
+1000
+);
+
+}
+
+
+function perderCarrera(){
+
+clearInterval(intervalo);
+
+corriendo=false;
+
+jugador=0;
+maquina=0;
+
+actualizarCarrera();
+
+document.getElementById(
+"estadoCarrera"
+).textContent =
+"La máquina te ha ganado. 😈 Inténtalo otra vez.";
+
+document.getElementById(
+"botonAcelerar"
+).disabled=false;
+
+}
+
+
+
+/* =====================================================
+   PREGUNTA
+===================================================== */
+
+function respuesta(){
+
+mostrar(6);
+
+}
+
+
+
+/* =====================================================
+   BOTÓN FINAL
+===================================================== */
+
+function prepararOrden(){
+
+const boton =
+document.getElementById(
+"botonOrden"
+);
+
+const texto =
+document.getElementById(
+"textoEspera"
+);
+
+
+boton.disabled=true;
+
+boton.textContent =
+"Espera órdenes para pulsar botón";
+
+texto.textContent =
+"Cuando sea el momento... lo sabrás.";
+
+
+/*
+   Después de 8 segundos se desbloquea.
+   Puedes cambiar 8000 por el tiempo que quieras.
+*/
+
+setTimeout(() => {
+
+boton.disabled=false;
+
+boton.textContent =
+"¡PULSA AHORA!";
+
+texto.textContent =
+"¡AHORA! ¡AHORA! ¡AHORA!";
+
+
+boton.onclick =
+() => mostrar(8);
+
+},8000);
+
+}
+
+</script>
+
+</body>
+</html>
